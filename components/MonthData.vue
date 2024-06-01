@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Month, Transaction } from '/types/types.d.ts';
-import Button from 'primevue/button';
+import type { Month, Transaction } from "/types/types.d.ts";
+import Button from "primevue/button";
 
 const props = defineProps<{
   title: string;
@@ -15,18 +15,21 @@ const emit = defineEmits<{
 const newAmount = ref<number>(0);
 
 const displayAmount = computed(() => {
-  return newAmount.value === 0 ? '' : newAmount.value;
+  return newAmount.value === 0 ? "" : newAmount.value;
 });
 
 function updateAmount(value) {
-  newAmount.value = value === '' ? 0 : Number(value);
+  newAmount.value = value === "" ? 0 : Number(value);
 }
 
 function addTransaction() {
-  emit('addTransaction', { month: props.month, title: 'foo', amount: Number(newAmount.value) });
+  emit("addTransaction", {
+    month: props.month,
+    title: "foo",
+    amount: Number(newAmount.value),
+  });
   newAmount.value = 0;
-};
-
+}
 </script>
 
 <template>
@@ -37,6 +40,11 @@ function addTransaction() {
         <input :value="transaction.amount" />
       </li>
     </ul>
-    <input type="number" :value="displayAmount" @input="updateAmount($event.target.value)" @keyup.enter="addTransaction()" />
+    <input
+      type="number"
+      :value="displayAmount"
+      @input="updateAmount($event.target.value)"
+      @keyup.enter="addTransaction()"
+    />
   </div>
 </template>

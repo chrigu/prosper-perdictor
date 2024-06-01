@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import Menu from 'primevue/menu';
-import 'primeicons/primeicons.css'
-
+import Menu from "primevue/menu";
+import "primeicons/primeicons.css";
 
 const items = [
   {
-    label: 'Home',
+    label: "Home",
   },
   {
-    label: 'Settings',
-  }]
-
+    label: "Settings",
+  },
+];
 </script>
 
 <template>

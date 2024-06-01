@@ -1,4 +1,4 @@
-import path from 'path';
+import path from "path";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -6,9 +6,9 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "nuxt-primevue", "@pinia/nuxt"],
   primevue: {
     options: {
-      unstyled: true
+      unstyled: true,
     },
-    importPT: { from: path.resolve(__dirname, './presets/aura/') }      //import and apply preset 
+    importPT: { from: path.resolve(__dirname, "./presets/aura/") }, //import and apply preset
   },
-  css: ['~/assets/styles.css'],
-})
+  css: ["~/assets/styles.css"],
+});
