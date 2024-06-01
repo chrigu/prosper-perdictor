@@ -1,26 +1,16 @@
-
-import type { ProgressSpinner } from '#build/components';
-
-import type { ProgressSpinner } from '#build/components';
-
-import type datatable from '~/presets/aura/datatable';
 <script setup lang="ts">
-import type { Month, Income } from '/types/types.d.ts';
+import type { Month, Transaction } from '/types/types.d.ts';
 import Button from 'primevue/button';
 
 const props = defineProps<{
   title: string;
   month: Month;
-  incomes: Income[];
+  transactions: Transaction[];
 }>();
 
 const emit = defineEmits<{
-  (e: "addIncome", income: Income): void;
+  (e: "addTransaction", transaction: Transaction): void;
 }>();
-
-const sum = computed(() => {
-  return props.incomes.reduce((acc, income) => acc + income.amount, 0);
-});
 
 const newAmount = ref<number>(0);
 
@@ -32,8 +22,8 @@ function updateAmount(value) {
   newAmount.value = value === '' ? 0 : Number(value);
 }
 
-function addIncome() {
-  emit('addIncome', { month: props.month, title: 'foo', amount: Number(newAmount.value) });
+function addTransaction() {
+  emit('addTransaction', { month: props.month, title: 'foo', amount: Number(newAmount.value) });
   newAmount.value = 0;
 };
 
@@ -43,11 +33,10 @@ function addIncome() {
   <div>
     <h4 class="text-lg font-semiboldx">{{ props.title }}</h4>
     <ul>
-      <li v-for="income in props.incomes">
-        <input :value="income.amount" />
+      <li v-for="transaction in props.transactions">
+        <input :value="transaction.amount" />
       </li>
     </ul>
-    <input type="number" :value="displayAmount" @input="updateAmount($event.target.value)" @keyup.enter="addIncome()" />
-    <p>Sum {{ sum }}</p>
+    <input type="number" :value="displayAmount" @input="updateAmount($event.target.value)" @keyup.enter="addTransaction()" />
   </div>
 </template>

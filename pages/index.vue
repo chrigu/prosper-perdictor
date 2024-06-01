@@ -2,10 +2,15 @@
 
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
-import MonthData from '~/components/MonthData.vue';
+import MonthData from '/components/MonthData.vue';
 
-const incomeStore = useIncomeStore();
+const transactionStore = useTransactionStore();
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+function calculateMonthlyTotal(transactions: Transaction[]) {
+  const some = transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+  return some
+}
 
 </script>
 <template>
@@ -15,25 +20,17 @@ const incomeStore = useIncomeStore();
       <Accordion :multiple="true" :activeIndex="[0]">
         <AccordionTab header="Income">
               <div class="m-0 grid grid-cols-12 gap-4">
-                <MonthData :title="'January'" :month="1" :incomes="incomeStore.incomes[0]" @add-income="incomeStore.addIncome"/>
-                <div>February</div>
-                <div>March</div>
-                <div>April</div>
-                <div>May</div>
-                <div>June</div>
-                <div>July</div>
-                <div>August</div>
-                <div>September</div>
-                <div>October</div>
-                <div>November</div>
-                <div>December</div>
+                <MonthData v-for="(month, idx) in months" :key="month" :title="month" :month="idx" :transactions="transactionStore.incomes[idx]" @add-transaction="transactionStore.addIncome"/>
+                <p v-for="(month, idx) in months" :key="month">Monthly: {{ calculateMonthlyTotal(transactionStore.incomes[idx])}}</p>
               </div>
+              <p>Yearly total: {{ transactionStore.yearlyIncome }}</p>
         </AccordionTab>
         <AccordionTab header="Expenditure">
-            <p class="m-0">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-            </p>
+          <div class="m-0 grid grid-cols-12 gap-4">
+                <MonthData v-for="(month, idx) in months" :key="month" :title="month" :month="idx" :transactions="transactionStore.expenditures[idx]" @add-transaction="transactionStore.addExpenditure"/>
+                <p v-for="(month, idx) in months" :key="month">Monthly: {{ calculateMonthlyTotal(transactionStore.expenditures[idx])}}</p>
+              </div>
+              <p>Sum: {{ transactionStore.yearlyExpenditure }}</p>
         </AccordionTab>
         <AccordionTab header="Accounts">
             <p class="m-0">
