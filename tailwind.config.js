@@ -42,6 +42,9 @@ export default {
         "surface-900": "rgb(var(--surface-900))",
         "surface-950": "rgb(var(--surface-950))",
       },
+      gridTemplateColumns: {
+        13: "repeat(13, minmax(0, 1fr))",
+      },
     },
   },
 };

@@ -5,3 +5,11 @@ export interface Transaction {
   month: Month;
   description?: string;
 }
+
+export type AccountType = "cash" | "investments" | "pension";
+
+export interface Account {
+  name: string;
+  balances: number[];
+  type: AccountType;
+}

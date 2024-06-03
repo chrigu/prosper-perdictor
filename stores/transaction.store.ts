@@ -1,4 +1,4 @@
-import type { Month, Transaction } from "../types/types";
+import type { Transaction } from "../types";
 import { defineStore } from "pinia";
 
 // You can name the return value of `defineStore()` anything you want,
