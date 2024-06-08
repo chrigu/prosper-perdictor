@@ -65,7 +65,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
     :style="{ width: '25rem' }"
   >
     <span class="text-surface-600 dark:text-surface-0/70 block mb-5"
-      >Update your information.</span
+      >Add account.</span
     >
     <div class="flex items-center gap-3 mb-3">
       <label for="name" class="font-semibold w-[6rem]">Name</label>

@@ -11,6 +11,19 @@ export const useTransactionStore = defineStore("income", () => {
     Array.from({ length: 12 }, () => []),
   );
 
+  const monthlyDifference = computed(() => {
+    const monthlyIncomes = incomes.value.map((monthlyIncomes) =>
+      calculateMonthlyTotal(monthlyIncomes),
+    );
+    const monthlyExpenditures = expenditures.value.map((monthlyExpenditures) =>
+      calculateMonthlyTotal(monthlyExpenditures),
+    );
+
+    return monthlyIncomes.map(
+      (income, index) => income - monthlyExpenditures[index],
+    );
+  });
+
   const yearlyIncome = computed(() => yearlyTotal(incomes));
   const yearlyExpenditure = computed(() => yearlyTotal(expenditures));
 
@@ -42,5 +55,6 @@ export const useTransactionStore = defineStore("income", () => {
     yearlyIncome,
     yearlyExpenditure,
     addExpenditure,
+    monthlyDifference,
   };
 });

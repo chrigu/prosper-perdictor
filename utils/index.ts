@@ -29,3 +29,7 @@ export function sumColumns(matrix: number[][]) {
   }
   return columnSums;
 }
+
+export function calculateMonthlyTotal(transactions: Transaction[]) {
+  return transactions.reduce((acc, transaction) => acc + transaction.amount, 0);
+}
