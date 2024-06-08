@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Account } from "./types/index";
+import type { Account, AccountType } from "../types/index";
 import Button from "primevue/button";
 
 const props = defineProps<{
@@ -11,19 +11,25 @@ const emit = defineEmits<{
 }>();
 
 const visible = ref(false);
-const selectedAccountType: Ref<AccountType> = ref("cash");
 const accountName = ref("");
 const accountTypes: { type: AccountType; label: string }[] = [
   { type: "cash", label: "Cash" },
-  { type: "investment", label: "Investment" },
+  { type: "investments", label: "Investment" },
   { type: "pension", label: "Pension" },
 ];
+const selectedAccountType: Ref<{ type: AccountType; label: string }> = ref(
+  accountTypes[0],
+);
 
 function addAccount() {
-  emit("addAccount", accountName.value, selectedAccountType.value);
+  emit("addAccount", accountName.value, selectedAccountType.value.type);
   selectedAccountType.value = accountTypes[0];
   accountName.value = "";
   visible.value = false;
+}
+
+function updateBalance(event: InputEvent, month: string, account: Account) {
+  account.balances[month] = Number((event.target as HTMLInputElement).value);
 }
 </script>
 
@@ -32,10 +38,24 @@ function addAccount() {
     <div class="m-0 grid grid-cols-13 gap-4">
       account {{ account.name }}
       <p>Account type: {{ account.type }}</p>
-      <p v-for="balance in account.balances">
-        {{ balance }}
+      <p v-for="(balance, month) in account.balances">
+        <input
+          :value="balance"
+          @input="updateBalance($event, month, account)"
+          type="number"
+        />
       </p>
     </div>
+  </div>
+  <div class="m-0 grid grid-cols-13 gap-4">
+    <p></p>
+    <p
+      v-for="sum in sumColumns(
+        props.accounts.map((account) => account.balances),
+      )"
+    >
+      {{ sum }}
+    </p>
   </div>
   <Button label="Add account" @click="visible = true" />
   <Dialog
