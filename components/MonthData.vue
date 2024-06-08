@@ -18,7 +18,7 @@ const displayAmount = computed(() => {
   return newAmount.value === 0 ? "" : newAmount.value;
 });
 
-function updateAmount(value) {
+function updateAmount(value: string) {
   newAmount.value = value === "" ? 0 : Number(value);
 }
 
@@ -42,6 +42,7 @@ function addTransaction() {
     </ul>
     <input
       type="number"
+      class="w-20"
       :value="displayAmount"
       @input="updateAmount($event.target.value)"
       @keyup.enter="addTransaction()"

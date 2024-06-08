@@ -16,39 +16,18 @@ const accountStore = useAccountStore();
     <h1>Finance</h1>
     <Accordion :multiple="true" :activeIndex="[0, 1]">
       <AccordionTab header="Outlook">
-        <h2>Income</h2>
-        <div class="m-0 grid grid-cols-13 gap-4">
-          <div></div>
-          <MonthData
-            v-for="(month, idx) in months"
-            :key="month"
-            :title="month"
-            :month="idx"
-            :transactions="transactionStore.incomes[idx]"
-            @add-transaction="transactionStore.addIncome"
-          />
-          <p v-for="(month, idx) in months" :key="month">
-            Monthly: {{ calculateMonthlyTotal(transactionStore.incomes[idx]) }}
-          </p>
-        </div>
-        <p>Yearly total: {{ transactionStore.yearlyIncome }}</p>
-        <h2>Expenditures</h2>
-        <div class="m-0 grid grid-cols-13 gap-4">
-          <div></div>
-          <MonthData
-            v-for="(month, idx) in months"
-            :key="month"
-            :title="month"
-            :month="idx"
-            :transactions="transactionStore.expenditures[idx]"
-            @add-transaction="transactionStore.addExpenditure"
-          />
-          <p v-for="(month, idx) in months" :key="month">
-            Monthly:
-            {{ calculateMonthlyTotal(transactionStore.expenditures[idx]) }}
-          </p>
-        </div>
-        <p>Yearly: {{ transactionStore.yearlyExpenditure }}</p>
+        <MonthlyTransactions
+          title="Income"
+          :transactions="transactionStore.incomes"
+          :yearlyTotal="transactionStore.yearlyIncome"
+          @add-transaction="transactionStore.addIncome"
+        />
+        <MonthlyTransactions
+          title="Expenditures"
+          :transactions="transactionStore.expenditures"
+          :yearlyTotal="transactionStore.yearlyExpenditure"
+          @add-transaction="transactionStore.addExpenditure"
+        />
         <div class="m-0 grid grid-cols-13 gap-4">
           <div></div>
           <p v-for="(_month, idx) in months" :key="idx">
