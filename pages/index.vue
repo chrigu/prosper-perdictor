@@ -30,6 +30,7 @@ const transactionStore = useTransactionStore();
             {{ transactionStore.monthlyDifference[idx] }}
           </p>
         </div>
+        <BarChart :labels="months" :data="transactionStore.monthlyDifference" />
       </AccordionTab>
       <AccordionTab header="Accounts">
         <Accounts />
