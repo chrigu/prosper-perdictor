@@ -4,6 +4,10 @@ import { defineStore } from "pinia";
 export const useAccountStore = defineStore("accounts", () => {
   const accounts = ref<Account[]>([]);
 
+  const monthlyTotalBalances = computed(() =>
+    sumColumns(accounts.value.map((account) => account.balances)),
+  );
+
   function addAccount(name: string, type: AccountType) {
     accounts.value.push({
       name,
@@ -12,5 +16,5 @@ export const useAccountStore = defineStore("accounts", () => {
     });
   }
 
-  return { accounts, addAccount };
+  return { accounts, addAccount, monthlyTotalBalances };
 });

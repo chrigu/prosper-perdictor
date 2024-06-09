@@ -2,9 +2,7 @@
 import type { Account, AccountType } from "../types/index";
 import Button from "primevue/button";
 
-const props = defineProps<{
-  accounts: Account[];
-}>();
+const accountStore = useAccountStore();
 
 const emit = defineEmits<{
   (e: "addAccount", account: Account): void;
@@ -22,7 +20,7 @@ const selectedAccountType: Ref<{ type: AccountType; label: string }> = ref(
 );
 
 function addAccount() {
-  emit("addAccount", accountName.value, selectedAccountType.value.type);
+  accountStore.addAccount(accountName.value, selectedAccountType.value.type);
   selectedAccountType.value = accountTypes[0];
   accountName.value = "";
   visible.value = false;
@@ -34,7 +32,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
 </script>
 
 <template>
-  <div v-for="account in props.accounts" :key="account.name">
+  <div v-for="account in accountStore.accounts" :key="account.name">
     <div class="m-0 grid grid-cols-13 gap-4">
       account {{ account.name }}
       <p>Account type: {{ account.type }}</p>
@@ -49,11 +47,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
   </div>
   <div class="m-0 grid grid-cols-13 gap-4">
     <p></p>
-    <p
-      v-for="sum in sumColumns(
-        props.accounts.map((account) => account.balances),
-      )"
-    >
+    <p v-for="sum in accountStore.monthlyTotalBalances">
       {{ sum }}
     </p>
   </div>
