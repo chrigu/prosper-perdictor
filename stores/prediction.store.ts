@@ -15,12 +15,14 @@ export const usePredictionsStore = defineStore("predictions", () => {
     }
 
     let balance = accountStore.monthlyTotalBalances[0];
+    let balanceWithTax = balance;
     return transactionStore.monthlyDifference.map((difference, index) => {
+      balanceWithTax += difference;
       balance +=
         difference -
         taxesStore.expectedTaxes[index] +
         taxesStore.paidTaxes[index];
-      return balance;
+      return [balance, balanceWithTax];
     });
   });
 

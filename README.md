@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# ProsperPredictor 📈
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A tool that helps you track your personal finances.
 
 ## Setup
 
