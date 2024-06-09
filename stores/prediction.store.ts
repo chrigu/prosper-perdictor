@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 export const usePredictionsStore = defineStore("predictions", () => {
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
+  const taxesStore = useTaxesStore();
 
   const predictions = computed(() => {
     if (
@@ -15,7 +16,10 @@ export const usePredictionsStore = defineStore("predictions", () => {
 
     let balance = accountStore.monthlyTotalBalances[0];
     return transactionStore.monthlyDifference.map((difference, index) => {
-      balance += difference;
+      balance +=
+        difference -
+        taxesStore.expectedTaxes[index] +
+        taxesStore.paidTaxes[index];
       return balance;
     });
   });

@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import Accordion from "primevue/accordion";
-import AccordionTab from "primevue/accordiontab";
-import Button from "primevue/button";
-import Dialog from "primevue/dialog";
-import MonthData from "/components/MonthData.vue";
-import { months } from "../utils/index";
 import { calculateMonthlyTotal } from "../utils/index";
 
 const props = defineProps<{
