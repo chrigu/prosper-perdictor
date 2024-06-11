@@ -14,12 +14,12 @@ const items = [
 
 <template>
   <div>
-    <div
-      class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-centerx"
+    <!-- <div
+      class="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[220px] overflow-y-auto text-centerx"
     >
       <Menu :model="items" />
-    </div>
-    <div class="ml-[320px]">
+    </div> -->
+    <div class="mx-4 my-8">
       <NuxtPage />
     </div>
   </div>

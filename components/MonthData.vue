@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Month, Transaction } from "/types/types.d.ts";
-import Button from "primevue/button";
+import InputNumber from "primevue/inputnumber";
 
 const props = defineProps<{
   title: string;
@@ -14,12 +14,8 @@ const emit = defineEmits<{
 
 const newAmount = ref<number>(0);
 
-const displayAmount = computed(() => {
-  return newAmount.value === 0 ? "" : newAmount.value;
-});
-
-function updateAmount(value: string) {
-  newAmount.value = value === "" ? 0 : Number(value);
+function updateAmount(value: number) {
+  newAmount.value = value;
 }
 
 function addTransaction() {
@@ -36,16 +32,19 @@ function addTransaction() {
   <div>
     <h4 class="text-lg font-semiboldx">{{ props.title }}</h4>
     <ul>
-      <li v-for="transaction in props.transactions">
-        <input :value="transaction.amount" />
+      <li v-for="transaction in props.transactions" class="my-4">
+        <InputNumber
+          v-model="transaction.amount"
+          inputId="integeronly"
+          pt:input:root:style="width: 80px;"
+        />
       </li>
     </ul>
-    <input
-      type="number"
-      class="w-20"
-      :value="displayAmount"
-      @input="updateAmount($event.target.value)"
+    <InputNumber
+      v-model="newAmount"
+      @input="updateAmount($event.value)"
       @keyup.enter="addTransaction()"
+      pt:input:root:style="width: 80px;"
     />
   </div>
 </template>

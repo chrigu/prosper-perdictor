@@ -27,7 +27,7 @@ function addAccount() {
 }
 
 function updateBalance(event: InputEvent, month: string, account: Account) {
-  account.balances[month] = Number((event.target as HTMLInputElement).value);
+  account.balances[month] = Number(event.value);
 }
 </script>
 
@@ -37,10 +37,11 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
       account {{ account.name }}
       <p>Account type: {{ account.type }}</p>
       <p v-for="(balance, month) in account.balances">
-        <input
-          :value="balance"
+        <InputNumber
+          :modelValue="balance"
           @input="updateBalance($event, month, account)"
-          type="number"
+          inputId="integeronly"
+          pt:input:root:style="width: 80px;"
         />
       </p>
     </div>
