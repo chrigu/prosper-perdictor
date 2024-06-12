@@ -20,5 +20,9 @@ export const useAccountStore = defineStore("accounts", () => {
     accounts.value = newAccounts;
   }
 
-  return { accounts, addAccount, monthlyTotalBalances, setAccounts };
+  function exportAccounts() {
+    return accounts.value;
+  }
+
+  return { accounts, addAccount, monthlyTotalBalances, setAccounts, exportAccounts };
 });

@@ -17,11 +17,19 @@ export const useTaxesStore = defineStore("taxes", () => {
     paidTaxes.value = newPaidTaxes;
   }
 
+  function exportTaxes() {
+    return {
+      expectedTaxes: expectedTaxes.value,
+      paidTaxes: paidTaxes.value,
+    };
+  }
+
   return {
     expectedTaxes,
     paidTaxes,
     updateExpectedTaxes,
     updatePaidTaxes,
     setTaxes,
+    exportTaxes,
   };
 });

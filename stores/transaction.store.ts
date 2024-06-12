@@ -56,6 +56,13 @@ export const useTransactionStore = defineStore("income", () => {
     expenditures.value = newExpenditures;
   }
 
+  function exportTransactions() {
+    return {
+      incomes: incomes.value,
+      expenditures: expenditures.value,
+    };
+  }
+
   return {
     incomes,
     expenditures,
@@ -66,5 +73,6 @@ export const useTransactionStore = defineStore("income", () => {
     monthlyDifference,
     setIncomes,
     setExpenditures,
+    exportTransactions,
   };
 });
