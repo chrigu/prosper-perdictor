@@ -1,5 +1,7 @@
 export function addDemoData() {
   const transactionStore = useTransactionStore();
+  const accountStore = useAccountStore();
+  const taxesStore = useTaxesStore();
 
   transactionStore.setIncomes([
     [{ month: 0, description: "Salary", amount: 1000 }],
@@ -30,4 +32,17 @@ export function addDemoData() {
     [{ month: 10, description: "Rent", amount: 400 }],
     [{ month: 11, description: "Rent", amount: 400 }],
   ]);
+
+  accountStore.setAccounts([
+    {
+      name: "Checking",
+      balances: [1000, 600, 200, 100, 0, 0, 0, 0, 0, 0, 0, 0],
+      type: "cash",
+    },
+  ]);
+
+  taxesStore.setTaxes(
+    [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
+    [500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  );
 }
