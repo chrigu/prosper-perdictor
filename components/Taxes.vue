@@ -14,7 +14,7 @@ function updatePaidTaxes(value: number, month: number) {
     <h1>Taxes</h1>
     <div class="m-0 grid grid-cols-13 gap-4">
       <div>Expected</div>
-      <p v-for="(tax, month) in taxesStore.expectedTaxes">
+      <p v-for="(tax, month) in taxesStore.expectedTaxes" class="my-4">
         <InputNumber
           :modelValue="tax"
           @input="updateExpetedTaxes($event.value, month)"

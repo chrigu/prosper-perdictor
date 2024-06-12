@@ -34,9 +34,8 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
 <template>
   <div v-for="account in accountStore.accounts" :key="account.name">
     <div class="m-0 grid grid-cols-13 gap-4">
-      account {{ account.name }}
-      <p>Account type: {{ account.type }}</p>
-      <p v-for="(balance, month) in account.balances">
+      <p>account {{ account.name }} / {{ account.type }}</p>
+      <p v-for="(balance, month) in account.balances" class="my-4">
         <InputNumber
           :modelValue="balance"
           @input="updateBalance($event, month, account)"
