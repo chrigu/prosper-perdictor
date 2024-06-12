@@ -1,7 +1,6 @@
 import { useTransactionStore, useAccountStore, useTaxesStore } from "#imports";
 
-
-export function exportAsJson () {
+export function exportAsJson() {
   const transactionStore = useTransactionStore();
   const accountStore = useAccountStore();
   const taxesStore = useTaxesStore();
@@ -10,7 +9,7 @@ export function exportAsJson () {
     transactions: transactionStore.exportTransactions(),
     accounts: accountStore.exportAccounts(),
     taxes: taxesStore.exportTaxes(),
-  }
+  };
   const jsonString = JSON.stringify(data, null, 2);
 
   // Create a Blob from the JSON string
@@ -31,4 +30,21 @@ export function exportAsJson () {
 
   // Revoke the Blob URL
   URL.revokeObjectURL(url);
+}
+
+export function importFromJson(file: File) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const jsonString = event.target?.result as string;
+    const data = JSON.parse(jsonString);
+
+    const transactionStore = useTransactionStore();
+    const accountStore = useAccountStore();
+    const taxesStore = useTaxesStore();
+
+    transactionStore.setTransactions(data.transactions);
+    accountStore.setAccounts(data.accounts);
+    taxesStore.setTaxes(data.taxes.expectedTaxes, data.taxes.paidTaxes);
+  };
+  reader.readAsText(file);
 }

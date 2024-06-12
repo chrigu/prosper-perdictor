@@ -6,6 +6,9 @@ const items = [
   {
     label: "Import",
     icon: "pi pi-file-import",
+    command: () => {
+      triggerFileInput();
+    },
   },
   {
     label: "Export",
@@ -17,9 +20,21 @@ const items = [
 ];
 
 const menu = ref<Menu | null>(null);
+const fileInput = ref<HTMLInputElement | null>(null);
 
 function toggle(event) {
   menu.value?.toggle(event);
+}
+
+function triggerFileInput() {
+  fileInput.value?.click();
+}
+
+function importJson() {
+  const file = fileInput.value?.files?.[0];
+  if (!file) return;
+
+  importFromJson(file);
 }
 </script>
 
@@ -35,6 +50,13 @@ function toggle(event) {
           aria-controls="overlay_menu"
         />
         <Menu ref="menu" id="overlay_menu" :model="items" :popup="true" />
+        <input
+          type="file"
+          ref="fileInput"
+          @change="importJson"
+          class="hidden"
+          accept=".json"
+        />
       </div>
       <NuxtPage />
     </div>

@@ -4,7 +4,7 @@ A tool that helps you track your personal finances.
 
 ## Todo
 
-- Export/Import
+- Export/Import ✅
 - Add multiple years
 - Nice UI
 - Add predictions graph
