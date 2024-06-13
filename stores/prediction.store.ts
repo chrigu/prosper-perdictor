@@ -1,6 +1,12 @@
 import type { Account, AccountType } from "../types";
 import { defineStore } from "pinia";
 
+export type Prediction = {
+  balanceCash: number;
+  balance: number;
+  balanceWithTax: number;
+};
+
 export const usePredictionsStore = defineStore("predictions", () => {
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
@@ -8,7 +14,7 @@ export const usePredictionsStore = defineStore("predictions", () => {
 
   const startMonth = 0;
 
-  const predictions = computed(() => {
+  const predictions = computed((): Predictions[] => {
     if (
       accountStore.accounts.length === 0 ||
       transactionStore.monthlyDifference.length === 0
@@ -28,7 +34,7 @@ export const usePredictionsStore = defineStore("predictions", () => {
         taxesStore.expectedTaxes[index] +
         taxesStore.paidTaxes[index];
       balanceCash = balance - currentSavings;
-      return [balance, balanceWithTax, balanceCash];
+      return { balanceCash, balance, balanceWithTax };
     });
   });
 

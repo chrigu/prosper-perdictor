@@ -5,11 +5,11 @@ A tool that helps you track your personal finances.
 ## Todo
 
 - Export/Import ✅
-- Add multiple years
 - Nice UI
 - Add predictions graph
 - Add graph snapshots
 - Add variations
+- Add multiple years
 
 ## Setup
 

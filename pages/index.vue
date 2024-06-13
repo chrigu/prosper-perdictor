@@ -10,7 +10,7 @@ const transactionStore = useTransactionStore();
     <Button label="Demo data" @click="addDemoData()" />
     <h1>Finance</h1>
     <Accordion :multiple="true" :activeIndex="[0, 1, 2, 3]">
-      <AccordionTab header="Outlook">
+      <AccordionTab header="Planned transactions">
         <MonthlyTransactions
           title="Income"
           :transactions="transactionStore.incomes"
@@ -38,7 +38,7 @@ const transactionStore = useTransactionStore();
       <AccordionTab header="Taxes">
         <Taxes />
       </AccordionTab>
-      <AccordionTab header="Predictions">
+      <AccordionTab header="Outlook">
         <Predictions />
       </AccordionTab>
     </Accordion>
