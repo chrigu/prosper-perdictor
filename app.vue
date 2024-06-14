@@ -2,6 +2,10 @@
 import Menu from "primevue/menu";
 import "primeicons/primeicons.css";
 
+useHead({
+  title: "ProsperPredictor 📈",
+});
+
 const items = [
   {
     label: "Import",
@@ -15,6 +19,13 @@ const items = [
     icon: "pi pi-file-export",
     command: () => {
       exportAsJson();
+    },
+  },
+  {
+    label: "Demo data",
+    icon: "pi pi-money-bill",
+    command: () => {
+      addDemoData();
     },
   },
 ];
@@ -41,7 +52,8 @@ function importJson() {
 <template>
   <div>
     <div class="mx-4 my-8">
-      <div class="flex justify-end">
+      <div class="flex justify-between mb-8">
+        <h1 class="text-xl">ProsperPredictor</h1>
         <Button
           type="button"
           icon="pi pi-ellipsis-v"
@@ -58,7 +70,6 @@ function importJson() {
           accept=".json"
         />
       </div>
-      <h1>ProsperPredictor</h1>
       <NuxtPage />
     </div>
   </div>

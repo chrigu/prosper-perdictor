@@ -42,19 +42,18 @@ const chartData = computed(() => ({
 </script>
 <template>
   <div>
-    <h1>Outlook</h1>
-    <div class="m-0 grid grid-cols-13 gap-4">
-      <div>Cash</div>
+    <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+      <h2>Cash</h2>
       <div></div>
-      <p v-for="p in cashPredictions.slice(0, 11)">{{ p }}</p>
-      <div>With investments</div>
+      <p class="mb-4" v-for="p in cashPredictions.slice(0, 11)">{{ p }}</p>
+      <div>+ investments</div>
       <div></div>
-      <p v-for="p in predictions.slice(0, 11)">{{ p }}</p>
-      <div>With tax</div>
+      <p class="mb-4" v-for="p in predictions.slice(0, 11)">{{ p }}</p>
+      <div>+ tax</div>
       <div></div>
-      <p v-for="p in predictionsWithTax.slice(0, 11)">{{ p }}</p>
+      <p class="mb-4" v-for="p in predictionsWithTax.slice(0, 11)">{{ p }}</p>
     </div>
-    <p v-if="predictionStore.predictions.length === 12">
+    <p class="mb-4" v-if="predictionStore.predictions.length === 12">
       Next year: {{ predictionStore.predictions[11] }}
     </p>
     <ToggleContent :content-name="'chart'">

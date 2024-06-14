@@ -32,8 +32,12 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
 </script>
 
 <template>
-  <div v-for="account in accountStore.accounts" :key="account.name">
-    <div class="m-0 grid grid-cols-13 gap-4">
+  <div
+    v-for="account in accountStore.accounts"
+    :key="account.name"
+    class="mb-4"
+  >
+    <div class="m-0 grid grid-cols-13 gap-4 mb-4">
       <p>account {{ account.name }} / {{ account.type }}</p>
       <p v-for="(balance, month) in account.balances" class="my-4">
         <InputNumber
@@ -45,8 +49,8 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
       </p>
     </div>
   </div>
-  <div class="m-0 grid grid-cols-13 gap-4">
-    <p></p>
+  <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+    <p class="font-semibold mb-4">Total</p>
     <p v-for="sum in accountStore.monthlyTotalBalances">
       {{ sum }}
     </p>
@@ -59,7 +63,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
     :style="{ width: '25rem' }"
   >
     <span class="text-surface-600 dark:text-surface-0/70 block mb-5"
-      >Add account.</span
+      >Add account</span
     >
     <div class="flex items-center gap-3 mb-3">
       <label for="name" class="font-semibold w-[6rem]">Name</label>

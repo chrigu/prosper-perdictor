@@ -49,7 +49,6 @@ const chartOptions = {
 </script>
 
 <template>
-  {{ chartData }}
   <Bar
     v-if="props.labels.length > 0"
     :options="chartOptions"

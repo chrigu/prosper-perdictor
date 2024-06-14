@@ -12,21 +12,24 @@ const emit = defineEmits<{
 }>();
 </script>
 <template>
-  <h2>{{ props.title }}</h2>
-  <div class="m-0 grid grid-cols-13 gap-4">
-    <div></div>
-    <MonthData
-      v-for="(month, idx) in months"
-      :key="month"
-      :title="month"
-      :month="idx"
-      :transactions="transactions[idx]"
-      @add-transaction="emit('addTransaction', $event)"
-    />
-    <div>Total</div>
-    <p v-for="(month, idx) in months" :key="month">
-      {{ calculateMonthlyTotal(transactions[idx]) }}
-    </p>
+  <div>
+    <h2 class="text-lg">{{ props.title }}</h2>
+    <div class="m-0 grid grid-cols-13 gap-4 mb-8">
+      <div></div>
+      <MonthData
+        v-for="(month, idx) in months"
+        :key="month"
+        :title="month"
+        :month="idx"
+        :transactions="transactions[idx]"
+        @add-transaction="emit('addTransaction', $event)"
+        class="mb-4"
+      />
+      <p class="font-semibold">Total</p>
+      <p v-for="(month, idx) in months" :key="month">
+        {{ calculateMonthlyTotal(transactions[idx]) }}
+      </p>
+    </div>
+    <p>Total: {{ yearlyTotal }}</p>
   </div>
-  <p>Yearly total: {{ yearlyTotal }}</p>
 </template>

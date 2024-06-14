@@ -7,17 +7,18 @@ const transactionStore = useTransactionStore();
     :transactions="transactionStore.incomes"
     :yearlyTotal="transactionStore.yearlyIncome"
     @add-transaction="transactionStore.addIncome"
+    class="mb-8"
   />
   <MonthlyTransactions
     title="Expenditures"
     :transactions="transactionStore.expenditures"
     :yearlyTotal="transactionStore.yearlyExpenditure"
     @add-transaction="transactionStore.addExpenditure"
+    class="mb-8"
   />
-  <div class="m-0 grid grid-cols-13 gap-4">
-    <div></div>
+  <div class="m-0 grid grid-cols-13 gap-4 mb-8">
+    <p>&Delta;</p>
     <p v-for="(_month, idx) in months" :key="idx">
-      Diff:
       {{ transactionStore.monthlyDifference[idx] }}
     </p>
   </div>

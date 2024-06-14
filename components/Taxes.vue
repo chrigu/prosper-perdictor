@@ -11,9 +11,8 @@ function updatePaidTaxes(value: number, month: number) {
 </script>
 <template>
   <div>
-    <h1>Taxes</h1>
-    <div class="m-0 grid grid-cols-13 gap-4">
-      <div>Expected</div>
+    <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+      <h3 class="flex justify-center flex-col">Expected</h3>
       <p v-for="(tax, month) in taxesStore.expectedTaxes" class="my-4">
         <InputNumber
           :modelValue="tax"
@@ -24,7 +23,7 @@ function updatePaidTaxes(value: number, month: number) {
       </p>
     </div>
     <div class="m-0 grid grid-cols-13 gap-4">
-      <div>Paid</div>
+      <h3 class="flex justify-center flex-col">Paid</h3>
       <p v-for="(tax, month) in taxesStore.paidTaxes">
         <InputNumber
           :modelValue="tax"

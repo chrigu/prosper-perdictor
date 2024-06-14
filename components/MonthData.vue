@@ -30,7 +30,7 @@ function addTransaction() {
 
 <template>
   <div>
-    <h4 class="text-lg font-semiboldx">{{ props.title }}</h4>
+    <h3 class="font-semibold mb-4">{{ props.title }}</h3>
     <ul>
       <li v-for="transaction in props.transactions" class="my-4">
         <InputNumber
