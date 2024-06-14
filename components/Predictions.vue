@@ -12,7 +12,7 @@ const cashPredictions = computed(() =>
 );
 
 const predictions = computed(() => {
-  return predictionStore.predictions.map((p: Prediction) => p.balanceCash);
+  return predictionStore.predictions.map((p: Prediction) => p.balance);
 });
 
 const predictionsWithTax = computed(() => {
@@ -25,14 +25,17 @@ const chartData = computed(() => ({
     {
       label: "With investments",
       data: predictions.value,
+      borderColor: "rgb(153, 102, 255)",
     },
     {
       label: "With tax",
       data: predictionsWithTax.value,
+      borderColor: "rgb(54, 162, 235)",
     },
     {
       label: "Cash",
       data: cashPredictions.value,
+      borderColor: "rgb(75, 192, 192)",
     },
   ],
 }));
@@ -54,6 +57,8 @@ const chartData = computed(() => ({
     <p v-if="predictionStore.predictions.length === 12">
       Next year: {{ predictionStore.predictions[11] }}
     </p>
-    <LineChart :labels="chartData.labels" :data="chartData.datasets" />
+    <ToggleContent :content-name="'chart'">
+      <ChartsLineChart :labels="chartData.labels" :data="chartData.datasets" />
+    </ToggleContent>
   </div>
 </template>

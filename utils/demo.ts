@@ -35,9 +35,14 @@ export function addDemoData() {
 
   accountStore.setAccounts([
     {
-      name: "Checking",
-      balances: [1000, 600, 200, 100, 0, 0, 0, 0, 0, 0, 0, 0],
+      name: "Bank A",
+      balances: [10000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       type: "cash",
+    },
+    {
+      name: "Broker B",
+      balances: [5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      type: "investments",
     },
   ]);
 

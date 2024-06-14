@@ -58,6 +58,7 @@ function importJson() {
           accept=".json"
         />
       </div>
+      <h1>ProsperPredictor</h1>
       <NuxtPage />
     </div>
   </div>

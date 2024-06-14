@@ -36,8 +36,6 @@ const chartData = computed(() => ({
   datasets: props.data,
 }));
 
-console.log(chartData.value);
-
 const chartOptions = {
   responsive: true,
 };

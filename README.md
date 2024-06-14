@@ -10,6 +10,7 @@ A tool that helps you track your personal finances.
 - Add graph snapshots
 - Add variations
 - Add multiple years
+- Add tests
 
 ## Setup
 
