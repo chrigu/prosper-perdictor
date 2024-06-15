@@ -28,24 +28,17 @@ export const useTaxesStore = defineStore("taxes", () => {
     taxes.value.paid[month] = amount;
   }
 
-  function setTaxes(newExpectedTaxes: number[], newPaidTaxes: number[]) {
-    taxes.value.expected = newExpectedTaxes;
-    taxes.value.paid = newPaidTaxes;
-  }
-
-  function exportTaxes() {
-    return {
-      expectedTaxes: expectedTaxes.value,
-      paidTaxes: paidTaxes.value,
-    };
+  function setTaxes(newTaxes: State) {
+    taxes.value.expected = newTaxes.expected;
+    taxes.value.paid = newTaxes.paid;
   }
 
   return {
+    taxes,
     expectedTaxes,
     paidTaxes,
     updateExpectedTaxes,
     updatePaidTaxes,
     setTaxes,
-    exportTaxes,
   };
 });

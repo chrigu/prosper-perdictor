@@ -6,6 +6,8 @@ useHead({
   title: "ProsperPredictor 📈",
 });
 
+const exports = useExport();
+
 const items = [
   {
     label: "Import",
@@ -18,7 +20,7 @@ const items = [
     label: "Export",
     icon: "pi pi-file-export",
     command: () => {
-      exportAsJson();
+      exports.exportAsJson();
     },
   },
   {
@@ -45,7 +47,7 @@ function importJson() {
   const file = fileInput.value?.files?.[0];
   if (!file) return;
 
-  importFromJson(file);
+  exports.importFromJson(file);
 }
 </script>
 

@@ -79,6 +79,7 @@ export const useTransactionStore = defineStore("transactions", () => {
   }
 
   return {
+    transcations,
     incomes,
     expenditures,
     addIncome,
