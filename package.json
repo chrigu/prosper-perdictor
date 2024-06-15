@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.0",
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
     "nuxt-primevue": "^3.0.0",
     "prettier": "3.2.5"
   }

@@ -1,8 +1,11 @@
 import type { Account, AccountType } from "../types";
 import { defineStore } from "pinia";
+import { useStorage } from "@vueuse/core";
 
 export const useAccountStore = defineStore("accounts", () => {
-  const accounts = ref<Account[]>([]);
+  const accounts = useStorage("prosperPerdictor-accounts", [], localStorage, {
+    mergeDefaults: true,
+  }) as any as Ref<Account[]>;
 
   const monthlyTotalBalances = computed(() =>
     sumColumns(accounts.value.map((account) => account.balances)),

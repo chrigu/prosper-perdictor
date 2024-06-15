@@ -1,15 +1,25 @@
 import type { Transaction } from "../types";
 import { defineStore } from "pinia";
+import { useStorage } from "@vueuse/core";
 
-// You can name the return value of `defineStore()` anything you want,
-// but it's best to use the name of the store and surround it with `use`
-// and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
-// the first argument is a unique id of the store across your application
-export const useTransactionStore = defineStore("income", () => {
-  const incomes = ref<Transaction[][]>(Array.from({ length: 12 }, () => []));
-  const expenditures = ref<Transaction[][]>(
-    Array.from({ length: 12 }, () => []),
-  );
+type State = {
+  incomes: Transaction[][];
+  expenditures: Transaction[][];
+};
+
+export const useTransactionStore = defineStore("transactions", () => {
+  const transcations = useStorage(
+    "prosperPerdictor-transactions",
+    {
+      incomes: Array.from({ length: 12 }, () => []),
+      expenditures: Array.from({ length: 12 }, () => []),
+    },
+    localStorage,
+    { mergeDefaults: true },
+  ) as any as Ref<State>;
+
+  const incomes = computed(() => transcations.value.incomes);
+  const expenditures = computed(() => transcations.value.expenditures);
 
   const monthlyDifference = computed(() => {
     const monthlyIncomes = incomes.value.map((monthlyIncomes) =>
@@ -28,18 +38,18 @@ export const useTransactionStore = defineStore("income", () => {
   const yearlyExpenditure = computed(() => yearlyTotal(expenditures));
 
   function addIncome(income: Transaction) {
-    addTransaction(income, incomes);
+    addTransaction(income, transcations.value.incomes);
   }
 
   function addExpenditure(expenditure: Transaction) {
-    addTransaction(expenditure, expenditures);
+    addTransaction(expenditure, transcations.value.expenditures);
   }
 
   function addTransaction(
     transaction: Transaction,
-    transactions: Ref<Transaction[][]>,
+    transactions: Transaction[][],
   ) {
-    transactions.value[transaction.month].push(transaction);
+    transactions[transaction.month].push(transaction);
   }
 
   function yearlyTotal(transactions: Ref<Transaction[][]>) {
@@ -49,19 +59,16 @@ export const useTransactionStore = defineStore("income", () => {
   }
 
   function setIncomes(newIncomes: Transaction[][]) {
-    incomes.value = newIncomes;
+    transcations.value.incomes = newIncomes;
   }
 
   function setExpenditures(newExpenditures: Transaction[][]) {
-    expenditures.value = newExpenditures;
+    transcations.value.expenditures = newExpenditures;
   }
 
-  function setTransactions(newTransactions: {
-    incomes: Transaction[][];
-    expenditures: Transaction[][];
-  }) {
-    incomes.value = newTransactions.incomes;
-    expenditures.value = newTransactions.expenditures;
+  function setTransactions(newTransactions: State) {
+    transcations.value.incomes = newTransactions.incomes;
+    transcations.value.expenditures = newTransactions.expenditures;
   }
 
   function exportTransactions() {
