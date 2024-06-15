@@ -8,6 +8,17 @@ export const useAccountStore = defineStore("accounts", () => {
     sumColumns(accounts.value.map((account) => account.balances)),
   );
 
+  const monthlyTotalInvestments = computed(() => {
+    return sumColumns(
+      accounts.value
+        .filter(
+          (account) =>
+            account.type === "investments" || account.type === "pension",
+        )
+        .map((investmentAccount) => investmentAccount.balances),
+    );
+  });
+
   function addAccount(name: string, type: AccountType) {
     accounts.value.push({
       name,
@@ -20,15 +31,11 @@ export const useAccountStore = defineStore("accounts", () => {
     accounts.value = newAccounts;
   }
 
-  function exportAccounts() {
-    return accounts.value;
-  }
-
   return {
     accounts,
     addAccount,
     monthlyTotalBalances,
     setAccounts,
-    exportAccounts,
+    monthlyTotalInvestments,
   };
 });

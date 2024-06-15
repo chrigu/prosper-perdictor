@@ -32,10 +32,10 @@ function addTransaction() {
   <div>
     <h3 class="font-semibold mb-4">{{ props.title }}</h3>
     <ul>
-      <li v-for="transaction in props.transactions" class="my-4">
+      <li v-for="(transaction, i) in props.transactions" class="my-4">
         <InputNumber
           v-model="transaction.amount"
-          inputId="integeronly"
+          :inputId="`transaction-${i}`"
           pt:input:root:style="width: 80px;"
         />
       </li>

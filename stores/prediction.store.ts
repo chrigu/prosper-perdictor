@@ -8,13 +8,12 @@ export type Prediction = {
 };
 
 export const usePredictionsStore = defineStore("predictions", () => {
+  const predictionStartMonth = ref(0);
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
   const taxesStore = useTaxesStore();
 
-  const startMonth = 0;
-
-  const predictions = computed((): Predictions[] => {
+  const predictions = computed((): Prediction[] => {
     if (
       accountStore.accounts.length === 0 ||
       transactionStore.monthlyDifference.length === 0
@@ -22,9 +21,10 @@ export const usePredictionsStore = defineStore("predictions", () => {
       return [];
     }
 
-    let balance = accountStore.monthlyTotalBalances[startMonth]; // todo: start at defined month
+    let balance = accountStore.monthlyTotalBalances[predictionStartMonth.value];
     let balanceWithTax = balance; // rename to balanceWithPaid or UnpaidTaxes
-    let currentSavings = getSavings(accountStore.accounts, startMonth);
+    let currentInvestments =
+      accountStore.monthlyTotalInvestments[predictionStartMonth.value];
     let balanceCash = 0;
 
     return transactionStore.monthlyDifference.map((difference, index) => {
@@ -33,21 +33,10 @@ export const usePredictionsStore = defineStore("predictions", () => {
         difference -
         taxesStore.expectedTaxes[index] +
         taxesStore.paidTaxes[index];
-      balanceCash = balance - currentSavings;
+      balanceCash = balance - currentInvestments;
       return { balanceCash, balance, balanceWithTax };
     });
   });
-
-  // hacky
-  function getSavings(accounts: Account[], month: number) {
-    let savingsAccounts = accounts.filter(
-      (account) => account.type === "investments" || account.type === "pension",
-    );
-    return savingsAccounts.reduce(
-      (acc, account) => acc + account.balances[month],
-      0,
-    );
-  }
 
   return { predictions };
 });

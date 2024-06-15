@@ -49,7 +49,7 @@ const chartData = computed(() => ({
       <div>+ investments</div>
       <div></div>
       <p class="mb-4" v-for="p in predictions.slice(0, 11)">{{ p }}</p>
-      <div>+ tax</div>
+      <div>+ unpaid tax</div>
       <div></div>
       <p class="mb-4" v-for="p in predictionsWithTax.slice(0, 11)">{{ p }}</p>
     </div>
