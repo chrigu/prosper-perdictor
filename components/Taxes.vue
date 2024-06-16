@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const taxesStore = useTaxesStore();
+const accountStore = useAccountStore();
 
 function updateExpetedTaxes(value: number, month: number) {
   taxesStore.updateExpectedTaxes(month, Number(value));
@@ -18,6 +19,7 @@ function updatePaidTaxes(value: number, month: number) {
           :modelValue="tax"
           @input="updateExpetedTaxes($event.value, month)"
           inputId="integeronly"
+          :disabled="accountStore.doneMonth > month"
           pt:input:root:style="width: 80px;"
         />
       </p>
@@ -28,6 +30,7 @@ function updatePaidTaxes(value: number, month: number) {
         <InputNumber
           :modelValue="tax"
           @input="updatePaidTaxes($event.value, month)"
+          :disabled="accountStore.doneMonth > month"
           inputId="integeronly"
           pt:input:root:style="width: 80px;"
         />

@@ -6,6 +6,7 @@ const props = defineProps<{
   title: string;
   month: Month;
   transactions: Transaction[];
+  monthDone: number;
 }>();
 
 const emit = defineEmits<{
@@ -36,12 +37,14 @@ function addTransaction() {
         <InputNumber
           v-model="transaction.amount"
           :inputId="`transaction-${i}`"
+          :disabled="props.monthDone > props.month"
           pt:input:root:style="width: 80px;"
         />
       </li>
     </ul>
     <InputNumber
       v-model="newAmount"
+      v-if="props.monthDone <= props.month"
       @input="updateAmount($event.value)"
       @keyup.enter="addTransaction()"
       pt:input:root:style="width: 80px;"

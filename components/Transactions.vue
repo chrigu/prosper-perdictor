@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const transactionStore = useTransactionStore();
+const accountStore = useAccountStore();
 </script>
 <template>
   <MonthlyTransactions
     title="Income"
     :transactions="transactionStore.incomes"
     :yearlyTotal="transactionStore.yearlyIncome"
+    :done-month="accountStore.doneMonth"
     @add-transaction="transactionStore.addIncome"
     class="mb-8"
   />
@@ -13,6 +15,7 @@ const transactionStore = useTransactionStore();
     title="Expenditures"
     :transactions="transactionStore.expenditures"
     :yearlyTotal="transactionStore.yearlyExpenditure"
+    :done-month="accountStore.doneMonth"
     @add-transaction="transactionStore.addExpenditure"
     class="mb-8"
   />

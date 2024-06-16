@@ -5,6 +5,7 @@ const props = defineProps<{
   title: string;
   transactions: Transaction[];
   yearlyTotal: number;
+  doneMonth: number;
 }>();
 
 const emit = defineEmits<{
@@ -22,6 +23,7 @@ const emit = defineEmits<{
         :title="month"
         :month="idx"
         :transactions="transactions[idx]"
+        :monthDone="props.doneMonth"
         @add-transaction="emit('addTransaction', $event)"
         class="mb-4"
       />
