@@ -15,8 +15,10 @@ const predictions = computed(() => {
   return predictionStore.predictions.map((p: Prediction) => p.balance);
 });
 
-const predictionsWithTax = computed(() => {
-  return predictionStore.predictions.map((p: Prediction) => p.balanceWithTax);
+const predictionsWithUnpaidtax = computed(() => {
+  return predictionStore.predictions.map(
+    (p: Prediction) => p.balanceWithUnpaidTax,
+  );
 });
 
 const chartData = computed(() => ({
@@ -29,7 +31,7 @@ const chartData = computed(() => ({
     },
     {
       label: "With tax",
-      data: predictionsWithTax.value,
+      data: predictionsWithUnpaidtax.value,
       borderColor: "rgb(54, 162, 235)",
     },
     {
@@ -51,7 +53,9 @@ const chartData = computed(() => ({
       <p class="mb-4" v-for="p in predictions.slice(0, 11)">{{ p }}</p>
       <div>+ unpaid tax</div>
       <div></div>
-      <p class="mb-4" v-for="p in predictionsWithTax.slice(0, 11)">{{ p }}</p>
+      <p class="mb-4" v-for="p in predictionsWithUnpaidtax.slice(0, 11)">
+        {{ p }}
+      </p>
     </div>
     <p class="mb-4" v-if="predictionStore.predictions.length === 12">
       Next year: {{ predictionStore.predictions[11] }}

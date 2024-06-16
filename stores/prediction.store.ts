@@ -4,14 +4,14 @@ import { defineStore } from "pinia";
 export type Prediction = {
   balanceCash: number;
   balance: number;
-  balanceWithTax: number;
+  balanceWithUnpaidTax: number;
 };
 
 export const usePredictionsStore = defineStore("predictions", () => {
-  const predictionStartMonth = ref(0);
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
   const taxesStore = useTaxesStore();
+  const predictionStartMonth = accountStore.doneMonth;
 
   const predictions = computed((): Prediction[] => {
     if (
@@ -21,20 +21,30 @@ export const usePredictionsStore = defineStore("predictions", () => {
       return [];
     }
 
-    let balance = accountStore.monthlyTotalBalances[predictionStartMonth.value];
-    let balanceWithTax = balance; // rename to balanceWithPaid or UnpaidTaxes
-    let currentInvestments =
-      accountStore.monthlyTotalInvestments[predictionStartMonth.value];
+    let balance = 0;
+    let balanceWithUnpaidTax = balance; // rename to balanceWithPaid or UnpaidTaxes
     let balanceCash = 0;
+    let currentInvestments =
+      accountStore.monthlyTotalInvestments[predictionStartMonth];
 
     return transactionStore.monthlyDifference.map((difference, index) => {
-      balanceWithTax += difference;
-      balance +=
-        difference -
-        taxesStore.expectedTaxes[index] +
-        taxesStore.paidTaxes[index];
+      if (index < predictionStartMonth) {
+        balanceWithUnpaidTax = accountStore.monthlyTotalBalances[index];
+        balance =
+          balanceWithUnpaidTax -
+          taxesStore.expectedTaxes[index] +
+          taxesStore.paidTaxes[index];
+        balanceCash = balance - currentInvestments;
+      } else {
+        balanceWithUnpaidTax += difference;
+        balance +=
+          difference -
+          taxesStore.expectedTaxes[index] +
+          taxesStore.paidTaxes[index];
+      }
+
       balanceCash = balance - currentInvestments;
-      return { balanceCash, balance, balanceWithTax };
+      return { balanceCash, balance, balanceWithUnpaidTax };
     });
   });
 

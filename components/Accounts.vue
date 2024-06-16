@@ -33,7 +33,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
 
 <template>
   <div
-    v-for="account in accountStore.accounts"
+    v-for="(account, i) in accountStore.accounts"
     :key="account.name"
     class="mb-4"
   >
@@ -43,7 +43,7 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
         <InputNumber
           :modelValue="balance"
           @input="updateBalance($event, month, account)"
-          inputId="integeronly"
+          :inputId="`account-${i}-month-${month}`"
           pt:input:root:style="width: 80px;"
         />
       </p>
@@ -53,6 +53,17 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
     <p class="font-semibold mb-4">Total</p>
     <p v-for="sum in accountStore.monthlyTotalBalances">
       {{ sum }}
+    </p>
+  </div>
+  <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+    <div></div>
+    <p v-for="i in 12" :key="i">
+      <p v-if="i > accountStore.doneMonth">
+        <i class="pi pi-check-circle" @click="accountStore.setDoneMonth(i)" style="color: gray"></i>
+      </p>
+      <p v-else>
+        <i class="pi pi-check-circle" style="color: green" @click="accountStore.setDoneMonth(i)"></i>
+      </p>
     </p>
   </div>
   <Button label="Add account" @click="visible = true" />

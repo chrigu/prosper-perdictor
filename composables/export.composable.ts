@@ -24,7 +24,7 @@ export function useExport() {
     // Create an anchor element and set its href attribute to the Blob URL
     const a = document.createElement("a");
     a.href = url;
-    a.download = "export.json"; // The file name
+    a.download = "prosperpredictions.json";
     document.body.appendChild(a);
     a.click();
 

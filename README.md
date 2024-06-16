@@ -6,7 +6,7 @@ A tool that helps you track your personal finances.
 
 - Export/Import ✅
 - Nice UI
-- Add predictions graph
+- Add predictions graph ✅
 - Add graph snapshots
 - Add variations
 - Add multiple years
