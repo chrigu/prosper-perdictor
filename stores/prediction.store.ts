@@ -25,7 +25,7 @@ export const usePredictionsStore = defineStore("predictions", () => {
     let balanceWithUnpaidTax = balance; // rename to balanceWithPaid or UnpaidTaxes
     let balanceCash = 0;
     let currentInvestments =
-      accountStore.monthlyTotalInvestments[predictionStartMonth];
+      accountStore.totalRestrictedFunds[predictionStartMonth];
 
     return transactionStore.monthlyDifference.map((difference, index) => {
       if (index < predictionStartMonth) {

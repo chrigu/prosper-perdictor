@@ -22,7 +22,7 @@ export const useAccountStore = defineStore("accounts", () => {
     sumColumns(accounts.value.map((account) => account.balances)),
   );
 
-  const monthlyTotalInvestments = computed(() => {
+  const totalRestrictedFunds = computed(() => {
     return sumColumns(
       accounts.value
         .filter(
@@ -30,6 +30,22 @@ export const useAccountStore = defineStore("accounts", () => {
             account.type === "investments" || account.type === "pension",
         )
         .map((investmentAccount) => investmentAccount.balances),
+    );
+  });
+
+  const monthlyTotalInvestments = computed(() => {
+    return sumColumns(
+      accounts.value
+        .filter((account) => account.type === "investments")
+        .map((pensionAccount) => pensionAccount.balances),
+    );
+  });
+
+  const monthlyTotalPension = computed(() => {
+    return sumColumns(
+      accounts.value
+        .filter((account) => account.type === "pension")
+        .map((pensionAccount) => pensionAccount.balances),
     );
   });
 
@@ -55,7 +71,9 @@ export const useAccountStore = defineStore("accounts", () => {
     addAccount,
     monthlyTotalBalances,
     setAccounts,
-    monthlyTotalInvestments,
+    totalRestrictedFunds,
     setDoneMonth,
+    monthlyTotalInvestments,
+    monthlyTotalPension,
   };
 });

@@ -11,6 +11,7 @@ A tool that helps you track your personal finances.
 - Add variations
 - Add multiple years
 - Add tests
+- Refactor grids
 
 ## Setup
 

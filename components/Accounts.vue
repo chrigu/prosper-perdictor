@@ -56,6 +56,18 @@ function updateBalance(event: InputEvent, month: string, account: Account) {
     </p>
   </div>
   <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+    <p class="font-semibold mb-4">Pension</p>
+    <p v-for="sum in accountStore.monthlyTotalPension">
+      {{ sum }}
+    </p>
+  </div>
+  <div class="m-0 grid grid-cols-13 gap-4 mb-4">
+    <p class="font-semibold mb-4">investments</p>
+    <p v-for="sum in accountStore.monthlyTotalInvestments">
+      {{ sum }}
+    </p>
+  </div>
+  <div class="m-0 grid grid-cols-13 gap-4 mb-4">
     <div></div>
     <p v-for="i in 12" :key="i">
       <p v-if="i > accountStore.doneMonth">
