@@ -11,7 +11,7 @@ export const usePredictionsStore = defineStore("predictions", () => {
   const accountStore = useAccountStore();
   const transactionStore = useTransactionStore();
   const taxesStore = useTaxesStore();
-  const predictionStartMonth = accountStore.doneMonth;
+  const predictionStartMonth = accountStore.doneMonth - 1;
 
   const predictions = computed((): Prediction[] => {
     if (
@@ -28,22 +28,22 @@ export const usePredictionsStore = defineStore("predictions", () => {
       accountStore.totalRestrictedFunds[predictionStartMonth];
 
     return transactionStore.monthlyDifference.map((difference, index) => {
-      if (index < predictionStartMonth) {
+      if (index <= predictionStartMonth) {
         balanceWithUnpaidTax = accountStore.monthlyTotalBalances[index];
         balance =
           balanceWithUnpaidTax -
           taxesStore.expectedTaxes[index] +
           taxesStore.paidTaxes[index];
-        balanceCash = balance - currentInvestments;
+        balanceCash = balance - accountStore.totalRestrictedFunds[index];
       } else {
         balanceWithUnpaidTax += difference;
         balance +=
           difference -
           taxesStore.expectedTaxes[index] +
           taxesStore.paidTaxes[index];
+        balanceCash = balance - currentInvestments;
       }
 
-      balanceCash = balance - currentInvestments;
       return { balanceCash, balance, balanceWithUnpaidTax };
     });
   });
